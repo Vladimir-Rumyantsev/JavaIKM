@@ -19,10 +19,19 @@
         <select id="genre" name="genre" required>
             <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.title}" th:selected="${genre.id == book.genre.id}"></option>
         </select>
+        <label for="publicationDate">Дата публикации:</label>
+        <input type="date" id="publicationDate" name="publicationDate" th:value="${book.bookPublications[0].publicationDate}">
+        <label for="publisher">Издатель:</label>
+        <input type="text" id="publisher" name="publisher" th:value="${book.bookPublications[0].publisher}" required>
+        <label for="publicationPlace">Место публикации:</label>
+        <input type="text" id="publicationPlace" name="publicationPlace" th:value="${book.bookPublications[0].publicationPlace}" required>
+        <label for="format">Формат:</label>
+        <input type="text" id="format" name="format" th:value="${book.bookPublications[0].format}" required>
+        <label for="circulation">Тираж:</label>
+        <input type="number" id="circulation" name="circulation" th:value="${book.bookPublications[0].circulation}">
         <button type="submit">Сохранить</button>
         <a href="/books" class="btn">Отмена</a>
     </form>
-    <a href="/bookPublications/add" class="btn">Добавить издание</a>
 </div>
 </body>
 </html>

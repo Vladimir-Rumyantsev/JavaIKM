@@ -19,10 +19,19 @@
         <select id="genre" name="genre" required>
             <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.title}"></option>
         </select>
+        <label for="publicationDate">Дата первой публикации:</label>
+        <input type="date" id="publicationDate" name="publicationDate">
+        <label for="publisher">Первое издательство:</label>
+        <input type="text" id="publisher" name="publisher" required>
+        <label for="publicationPlace">Первое место публикации:</label>
+        <input type="text" id="publicationPlace" name="publicationPlace" required>
+        <label for="format">Формат первого издания:</label>
+        <input type="text" id="format" name="format" required>
+        <label for="circulation">Тираж первого издания:</label>
+        <input type="number" id="circulation" name="circulation">
         <button type="submit">Сохранить</button>
         <a href="/books" class="btn">Отмена</a>
     </form>
-    <a href="/bookPublications/add" class="btn">Добавить издание</a>
 </div>
 </body>
 </html>

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.rumyantsev.IKM.entities.Book;
+import ru.rumyantsev.IKM.entities.BookPublication;
 import ru.rumyantsev.IKM.repositories.AuthorRepository;
 import ru.rumyantsev.IKM.repositories.BookRepository;
 import ru.rumyantsev.IKM.repositories.GenreRepository;
@@ -38,9 +39,11 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String addBook(@ModelAttribute Book book, RedirectAttributes redirectAttributes) {
+    public String addBook(@ModelAttribute Book book, @ModelAttribute BookPublication bookPublication, RedirectAttributes redirectAttributes) {
         bookRepository.save(book);
-        redirectAttributes.addFlashAttribute("message", "Книга успешно добавлена!");
+        bookPublication.setBook(book);
+        bookPublicationRepository.save(bookPublication);
+        redirectAttributes.addFlashAttribute("message", "Книга и её издание успешно добавлены!");
         return "redirect:/books";
     }
 

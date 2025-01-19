@@ -10,11 +10,11 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "book_publications")
+@Table(name = "publishers")
 public class BookPublication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_publication", nullable = false)
+    @Column(name = "id_publisher", nullable = false)
     private Integer id;
 
     @ManyToOne

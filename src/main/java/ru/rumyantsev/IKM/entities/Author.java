@@ -20,7 +20,7 @@ public class Author {
     private Integer id;
 
     @Size(max = 100)
-    @Column(name = "name", length = 100)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
     @Column(name = "birth_date")
