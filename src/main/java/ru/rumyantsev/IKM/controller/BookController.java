@@ -9,6 +9,8 @@ import ru.rumyantsev.IKM.entities.Book;
 import ru.rumyantsev.IKM.repositories.AuthorRepository;
 import ru.rumyantsev.IKM.repositories.BookRepository;
 import ru.rumyantsev.IKM.repositories.GenreRepository;
+import ru.rumyantsev.IKM.repositories.BookPublicationRepository;
+import ru.rumyantsev.IKM.repositories.ReviewRepository;
 
 @Controller
 @RequestMapping("/books")
@@ -18,6 +20,8 @@ public class BookController {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final GenreRepository genreRepository;
+    private final BookPublicationRepository bookPublicationRepository;
+    private final ReviewRepository reviewRepository;
 
     @GetMapping
     public String listBooks(Model model) {
@@ -59,5 +63,21 @@ public class BookController {
     public String deleteBook(@PathVariable("id") Integer id) {
         bookRepository.deleteById(id);
         return "redirect:/books";
+    }
+
+    @GetMapping("/publications/{id}")
+    public String listBookPublications(@PathVariable("id") Integer id, Model model) {
+        Book book = bookRepository.findById(id).orElse(null);
+        model.addAttribute("book", book);
+        model.addAttribute("publications", bookPublicationRepository.findByBookId(id));
+        return "bookPublications";
+    }
+
+    @GetMapping("/reviews/{id}")
+    public String listBookReviews(@PathVariable("id") Integer id, Model model) {
+        Book book = bookRepository.findById(id).orElse(null);
+        model.addAttribute("book", book);
+        model.addAttribute("reviews", reviewRepository.findByBookId(id));
+        return "bookReviews";
     }
 }

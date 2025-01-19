@@ -2,29 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Издания книг</title>
+    <title>Издания книги</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var message = document.getElementById("message");
-            if (message) {
-                setTimeout(function() {
-                    message.style.display = "none";
-                }, 3000); // Сообщение будет отображаться 3 секунды
-            }
-        });
-    </script>
 </head>
 <body>
 <div class="container">
-    <h1>Издания книг</h1>
-    <a href="/bookPublications/add" class="btn">Добавить издание книги</a>
+    <h1>Издания книги: <span th:text="${book.title}"></span></h1>
+    <a href="/bookPublications/add" class="btn">Добавить издание</a>
+    <a href="/books" class="btn">Все книги</a>
     <a href="/" class="btn">В главное меню</a>
-    <div id="message" style="color: green;" th:text="${message}"></div>
     <table>
         <thead>
         <tr>
-            <th>Книга</th>
             <th>Дата публикации</th>
             <th>Издатель</th>
             <th>Место публикации</th>
@@ -34,16 +23,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="bookPublication : ${bookPublications}">
-            <td th:text="${bookPublication.book.title}"></td>
-            <td th:text="${bookPublication.publicationDate}"></td>
-            <td th:text="${bookPublication.publisher}"></td>
-            <td th:text="${bookPublication.publicationPlace}"></td>
-            <td th:text="${bookPublication.format}"></td>
-            <td th:text="${bookPublication.circulation}"></td>
+        <tr th:each="publication : ${publications}">
+            <td th:text="${publication.publicationDate}"></td>
+            <td th:text="${publication.publisher}"></td>
+            <td th:text="${publication.publicationPlace}"></td>
+            <td th:text="${publication.format}"></td>
+            <td th:text="${publication.circulation}"></td>
             <td>
-                <a th:href="@{/bookPublications/edit/{id}(id=${bookPublication.id})}" class="btn">Редактировать</a>
-                <a th:href="@{/bookPublications/delete/{id}(id=${bookPublication.id})}" class="btn">Удалить</a>
+                <a th:href="@{/bookPublications/edit/{id}(id=${publication.id})}" class="btn">Редактировать</a>
+                <a th:href="@{/bookPublications/delete/{id}(id=${publication.id})}" class="btn">Удалить</a>
             </td>
         </tr>
         </tbody>

@@ -17,12 +17,6 @@ public class BookPublicationController {
     private final BookPublicationRepository bookPublicationRepository;
     private final BookRepository bookRepository;
 
-    @GetMapping
-    public String listBookPublications(Model model) {
-        model.addAttribute("bookPublications", bookPublicationRepository.findAll());
-        return "bookPublications";
-    }
-
     @GetMapping("/add")
     public String showAddBookPublicationForm(Model model) {
         model.addAttribute("bookPublication", new BookPublication());
@@ -34,7 +28,7 @@ public class BookPublicationController {
     public String addBookPublication(@ModelAttribute BookPublication bookPublication, RedirectAttributes redirectAttributes) {
         bookPublicationRepository.save(bookPublication);
         redirectAttributes.addFlashAttribute("message", "Издание книги успешно добавлено!");
-        return "redirect:/bookPublications";
+        return "redirect:/books/publications/" + bookPublication.getBook().getId();
     }
 
     @GetMapping("/edit/{id}")
@@ -48,12 +42,13 @@ public class BookPublicationController {
     @PostMapping("/edit/{id}")
     public String editBookPublication(@PathVariable("id") Integer id, @ModelAttribute BookPublication bookPublication) {
         bookPublicationRepository.save(bookPublication);
-        return "redirect:/bookPublications";
+        return "redirect:/books/publications/" + bookPublication.getBook().getId();
     }
 
     @GetMapping("/delete/{id}")
     public String deleteBookPublication(@PathVariable("id") Integer id) {
+        BookPublication bookPublication = bookPublicationRepository.findById(id).orElse(null);
         bookPublicationRepository.deleteById(id);
-        return "redirect:/bookPublications";
+        return "redirect:/books/publications/" + bookPublication.getBook().getId();
     }
 }
