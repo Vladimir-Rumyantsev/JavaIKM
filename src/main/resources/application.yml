@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: IKM
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/BD3
+    username: postgres
+    password: HtRB3002
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8081

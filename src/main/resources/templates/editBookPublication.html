@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать издание книги</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Редактировать издание книги</h1>
+    <form th:action="@{/bookPublications/edit/{id}(id=${bookPublication.id})}" method="post">
+        <label for="book">Книга:</label>
+        <select id="book" name="book" required>
+            <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.title}" th:selected="${book.id == bookPublication.book.id}"></option>
+        </select>
+        <label for="publicationDate">Дата публикации:</label>
+        <input type="date" id="publicationDate" name="publicationDate" th:value="${bookPublication.publicationDate}">
+        <label for="publisher">Издатель:</label>
+        <input type="text" id="publisher" name="publisher" th:value="${bookPublication.publisher}" required>
+        <label for="publicationPlace">Место публикации:</label>
+        <input type="text" id="publicationPlace" name="publicationPlace" th:value="${bookPublication.publicationPlace}" required>
+        <label for="format">Формат:</label>
+        <input type="text" id="format" name="format" th:value="${bookPublication.format}" required>
+        <label for="circulation">Тираж:</label>
+        <input type="number" id="circulation" name="circulation" th:value="${bookPublication.circulation}">
+        <button type="submit">Сохранить</button>
+        <a href="/bookPublications" class="btn">Отмена</a>
+    </form>
+</div>
+</body>
+</html>

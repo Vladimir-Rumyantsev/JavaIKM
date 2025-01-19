@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Отзывы</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var message = document.getElementById("message");
+            if (message) {
+                setTimeout(function() {
+                    message.style.display = "none";
+                }, 3000); // Сообщение будет отображаться 3 секунды
+            }
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <h1>Отзывы</h1>
+    <a href="/reviews/add" class="btn">Добавить отзыв</a>
+    <a href="/" class="btn">В главное меню</a>
+    <div id="message" style="color: green;" th:text="${message}"></div>
+    <table>
+        <thead>
+        <tr>
+            <th>Книга</th>
+            <th>Текст отзыва</th>
+            <th>Рейтинг</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="review : ${reviews}">
+            <td th:text="${review.book.title}"></td>
+            <td th:text="${review.reviewText}"></td>
+            <td th:text="${review.rating}"></td>
+            <td>
+                <a th:href="@{/reviews/edit/{id}(id=${review.id})}" class="btn">Редактировать</a>
+                <a th:href="@{/reviews/delete/{id}(id=${review.id})}" class="btn">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
