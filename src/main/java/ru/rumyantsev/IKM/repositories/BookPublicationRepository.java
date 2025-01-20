@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface BookPublicationRepository extends JpaRepository<BookPublication, Integer> {
     List<BookPublication> findByBookId(Integer bookId);
+    long countByBookId(Integer bookId);
 }

@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <title>Издания книги</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var errorMessage = document.getElementById("errorMessage");
+            if (errorMessage) {
+                setTimeout(function() {
+                    errorMessage.style.display = "none";
+                }, 3000); // Сообщение будет отображаться 3 секунды
+            }
+        });
+    </script>
 </head>
 <body>
 <div class="container">
@@ -11,6 +21,7 @@
     <a href="/bookPublications/add" class="btn">Добавить издание</a>
     <a href="/books" class="btn">Все книги</a>
     <a href="/" class="btn">В главное меню</a>
+    <div id="errorMessage" style="color: red;" th:text="${errorMessage}"></div>
     <table>
         <thead>
         <tr>

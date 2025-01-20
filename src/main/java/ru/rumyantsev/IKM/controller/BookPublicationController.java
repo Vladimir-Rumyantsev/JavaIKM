@@ -46,9 +46,17 @@ public class BookPublicationController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteBookPublication(@PathVariable("id") Integer id) {
+    public String deleteBookPublication(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
         BookPublication bookPublication = bookPublicationRepository.findById(id).orElse(null);
-        bookPublicationRepository.deleteById(id);
+        if (bookPublication != null) {
+            long count = bookPublicationRepository.countByBookId(bookPublication.getBook().getId());
+            if (count > 1) {
+                bookPublicationRepository.deleteById(id);
+            } else {
+                redirectAttributes.addFlashAttribute("errorMessage", "Невозможно удалить единственное издание");
+                return "redirect:/books/publications/" + bookPublication.getBook().getId();
+            }
+        }
         return "redirect:/books/publications/" + bookPublication.getBook().getId();
     }
 }
